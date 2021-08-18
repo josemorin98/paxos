@@ -1,0 +1,136 @@
+version: '3'
+services:
+  Proposer_1:
+    image: proposer
+    build:
+      context: ./Proposer
+      dockerfile: ./Dockerfile
+    ports:
+      - 1500:5000
+    networks:
+      - clus_net
+    volumes:
+      - /home/jmorin/Paxos/Files/:/app/data/
+    command: python /app/proposer.py 1 1500 148.247.201.222 0 1500 2 148.247.201.222 1600 3
+  
+  Proposer_2:
+    image: proposer
+    build:
+      context: ./Proposer
+      dockerfile: ./Dockerfile
+    ports:
+      - 1501:5000
+    networks:
+      - clus_net
+    volumes:
+      - /home/jmorin/Paxos/Files/:/app/data/
+    command: python /app/proposer.py 2 1501 148.247.201.222 1 1500 2 148.247.201.222 1600 3
+
+  # Proposer_3:
+  #   image: proposer
+  #   build:
+  #     context: ./Proposer
+  #     dockerfile: ./Dockerfile
+  #   ports:
+  #     - 1502:5000
+  #   networks:
+  #     - clus_net
+  #   volumes:
+  #     - /home/jmorin/Paxos/Files/:/app/data/
+  #   command: python /app/proposer.py 3 1502 148.247.201.222 1 1500 3 148.247.201.222 1600 3
+
+  Aceptor_1:
+    image: aceptor
+    build:
+      context: ./Aceptor_Learner
+      dockerfile: ./Dockerfile
+    ports: 
+      - 1600:5000
+    networks:
+      - clus_net
+    volumes:
+      - /home/jmorin/Paxos/Files/:/app/data/
+    command: python /app/ace_learn.py 148.247.201.222 1600 1600 3 1
+  
+  Aceptor_2:
+    image: aceptor
+    build:
+      context: ./Aceptor_Learner
+      dockerfile: ./Dockerfile
+    ports: 
+      - 1601:5000
+    networks:
+      - clus_net
+    volumes:
+      - /home/jmorin/Paxos/Files/:/app/data/
+    command: python /app/ace_learn.py 148.247.201.222 1601 1600 3 2
+
+
+  Aceptor_3:
+    image: aceptor
+    build:
+      context: ./Aceptor_Learner
+      dockerfile: ./Dockerfile
+    ports: 
+      - 1602:5000
+    networks:
+      - clus_net
+    volumes:
+      - /home/jmorin/Paxos/Files/:/app/data/
+    command: python /app/ace_learn.py 148.247.201.222 1602 1600 3 3
+  
+  Aceptor_4:
+    image: aceptor
+    build:
+      context: ./Aceptor_Learner
+      dockerfile: ./Dockerfile
+    ports: 
+      - 1603:5000
+    networks:
+      - clus_net
+    volumes:
+      - /home/jmorin/Paxos/Files/:/app/data/
+    command: python /app/ace_learn.py 148.247.201.222 1603 1600 6 4
+  
+  Aceptor_5:
+    image: aceptor
+    build:
+      context: ./Aceptor_Learner
+      dockerfile: ./Dockerfile
+    ports: 
+      - 1604:5000
+    networks:
+      - clus_net
+    volumes:
+      - /home/jmorin/Paxos/Files/:/app/data/
+    command: python /app/ace_learn.py 148.247.201.222 1604 1600 6 5
+
+  Aceptor_6:
+    image: aceptor
+    build:
+      context: ./Aceptor_Learner
+      dockerfile: ./Dockerfile
+    ports: 
+      - 1605:5000
+    networks:
+      - clus_net
+    volumes:
+      - /home/jmorin/Paxos/Files/:/app/data/
+    command: python /app/ace_learn.py 148.247.201.222 1605 1600 6 6
+  
+  Aceptor_7:
+    image: aceptor
+    build:
+      context: ./Aceptor_Learner
+      dockerfile: ./Dockerfile
+    ports: 
+      - 1606:5000
+    networks:
+      - clus_net
+    volumes:
+      - /home/jmorin/Paxos/Files/:/app/data/
+    command: python /app/ace_learn.py 148.247.201.222 1606 1600 6 6
+
+
+networks:
+  clus_net:
